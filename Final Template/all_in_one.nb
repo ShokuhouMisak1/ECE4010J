@@ -1,0 +1,400 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     15388,        392]
+NotebookOptionsPosition[     13423,        352]
+NotebookOutlinePosition[     13840,        369]
+CellTagsIndexPosition[     13797,        366]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "41.60", ",", "41.48", ",", "42.34", ",", "41.95", ",", "41.86", ",", 
+     "42.18", ",", "41.72", ",", "42.26", ",", "41.81", ",", "42.04"}], 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Var", " ", "=", " ", "0.5"}], " ", ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"note", " ", "that", " ", "this", " ", "is", " ", "variance"}], ",",
+     " ", 
+    RowBox[{"not", " ", "standard", " ", 
+     RowBox[{"derivation", "!"}]}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Mu]0", " ", "=", " ", "41.5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Z", " ", "=", " ", 
+  RowBox[{"ZTest", "[", 
+   RowBox[{"data", ",", "Var", ",", "\[Mu]0", ",", "\"\<TestDataTable\>\"", ",", 
+    RowBox[{"AlternativeHypothesis", "\[Rule]", "\"\<Greater\>\""}], ",", 
+    RowBox[{"SignificanceLevel", "->", "0.05"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.9545530055584927`*^9, 3.954553062349724*^9}, {
+  3.954553130398241*^9, 3.954553140487726*^9}, {3.954553211623543*^9, 
+  3.9545532242780285`*^9}},ExpressionUUID->"96c9ab5a-9dd2-2448-8666-\
+6b4ad01acd5e"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Statistic\"\>", "\<\"P\[Hyphen]Value\"\>"},
+     {"\<\"Z\"\>", "1.8961856449198193`", "0.028967750348374607`"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{
+  3.954553034549103*^9, 3.9545530757198906`*^9, {3.9545531384107533`*^9, 
+   3.9545531420622807`*^9}},
+ CellLabel->"Out[18]=",ExpressionUUID->"a1c20bbb-c8a7-1f4e-80f6-ab2dca69e78c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TTest", "[", 
+  RowBox[{"data", ",", " ", "\[Mu]0", ",", "\"\<TestDataTable\>\"", ",", 
+   RowBox[{"AlternativeHypothesis", "\[Rule]", "\"\<Greater\>\""}], ",", 
+   RowBox[{"SignificanceLevel", "->", "0.05"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.954553146293396*^9, 3.954553149922476*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"89749c2f-7ce7-c948-a31c-7be7b82cd9f5"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Statistic\"\>", "\<\"P\[Hyphen]Value\"\>"},
+     {"\<\"T\"\>", "4.719404870931748`", "0.0005450004210504014`"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{3.9545531525685177`*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"1a718c92-c41a-754e-b717-720a3a0deb73"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "6.2", ",", "1.9", ",", "4.4", ",", "4.9", ",", "3.5", ",", "4.6", ",", 
+     "4.2", ",", "1.1", ",", "1.3", ",", "4.8", ",", "4.1", ",", "3.7", ",", 
+     "2.5", ",", "3.7", ",", "4.2", ",", "1.4", ",", "2.6", ",", "1.5", ",", 
+     "3.9", ",", "3.2"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]", " ", "=", " ", "1.5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FisherRatioTest", "[", 
+  RowBox[{"data", ",", 
+   RowBox[{"\[Sigma]", "^", "2"}], ",", "\"\<TestDataTable\>\"", ",", 
+   RowBox[{"AlternativeHypothesis", "\[Rule]", "\"\<Less\>\""}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"FisherRatioTest", "[", 
+  RowBox[{"data", ",", 
+   RowBox[{"\[Sigma]", "^", "2"}], ",", "\"\<TestConclusion\>\"", ",", 
+   RowBox[{"AlternativeHypothesis", "\[Rule]", "\"\<Less\>\""}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.95455326493734*^9, 3.9545532707181625`*^9}},
+ CellLabel->"In[72]:=",ExpressionUUID->"f6bcbb91-11f8-f94e-affc-663b42a308c0"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Statistic\"\>", "\<\"P\[Hyphen]Value\"\>"},
+     {"\<\"Fisher Ratio\"\>", "16.77577777777778`", "0.3949446987045991`"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{{3.9545532447143974`*^9, 3.9545532730592155`*^9}, 
+   3.9545536264653378`*^9},
+ CellLabel->"Out[74]=",ExpressionUUID->"91cdbb7f-3147-dd4e-80a0-b67ad76074a7"],
+
+Cell[BoxData[
+ TemplateBox[{"\"The null hypothesis that \"", 
+   TemplateBox[{
+    "\"the variance of the population is greater than or equal to \"", 
+     "2.25`", "\" \""}, "RowDefault"], "\"is not rejected at the \"", 
+   TemplateBox[{"5", "\" percent level \""}, "RowDefault"], 
+   TemplateBox[{"\"based on the \"", "\"Fisher Ratio\"", "\" test.\""}, 
+    "RowDefault"]},
+  "RowDefault"]], "Output",
+ CellChangeTimes->{{3.9545532447143974`*^9, 3.9545532730592155`*^9}, 
+   3.9545536264729156`*^9},
+ CellLabel->"Out[75]=",ExpressionUUID->"0d06a2a7-76dc-e349-bf4e-94fa9bfba5d8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"X", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "75", ",", "46", ",", "57", ",", "43", ",", "58", ",", "38", ",", "61", ",",
+      "56", ",", "64", ",", "65"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Y", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "52", ",", "41", ",", "43", ",", "47", ",", "32", ",", "49", ",", "52", ",",
+      "44", ",", "57", ",", "60"}], "}"}]}], ";"}], "\n", 
+ RowBox[{"test1", " ", "=", " ", 
+  RowBox[{"SignTest", "[", 
+   RowBox[{"data", ",", "0", ",", "\"\<TestStatisticTable\>\"", ",", 
+    RowBox[{"SignificanceLevel", "->", "0.05"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"test1", " ", "=", " ", 
+  RowBox[{"SignTest", "[", 
+   RowBox[{"data", ",", "0", ",", "\"\<TestConclusion\>\"", ",", 
+    RowBox[{"SignificanceLevel", "->", "0.05"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"test2", " ", "=", " ", 
+  RowBox[{"SignedRankTest", "[", 
+   RowBox[{"data", ",", "0", ",", "\"\<TestStatisticTable\>\"", ",", 
+    RowBox[{"AlternativeHypothesis", "->", "\"\<Greater\>\""}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"test2", " ", "=", " ", 
+  RowBox[{"SignedRankTest", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"X", ",", "Y"}], "}"}], ",", "0", 
+    ",", "\"\<TestStatisticTable\>\""}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.9545533279868317`*^9, 3.954553412461958*^9}, {
+  3.9545535928047485`*^9, 3.9545536045158234`*^9}, {3.954553643113718*^9, 
+  3.954553648208885*^9}, {3.954553692262268*^9, 3.954553730277725*^9}},
+ CellLabel->
+  "In[106]:=",ExpressionUUID->"815b1ab0-71c9-ba4b-b2f7-559af0d03327"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Statistic\"\>"},
+     {"\<\"Sign\"\>", "20"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{
+  3.954553330109041*^9, {3.954553375532295*^9, 3.9545534233028984`*^9}, {
+   3.954553573137375*^9, 3.954553650313654*^9}, {3.954553701244524*^9, 
+   3.9545537321741276`*^9}},
+ CellLabel->
+  "Out[108]=",ExpressionUUID->"106049c0-3381-5f4b-a403-e76fad0f5298"],
+
+Cell[BoxData[
+ TemplateBox[{"\"The null hypothesis that \"", 
+   TemplateBox[{
+    "\"the \"", "\"median\"", "\" of the population is equal to \"", "0", 
+     "\" \""}, "RowDefault"], "\"is rejected at the \"", 
+   TemplateBox[{"5.`", "\" percent level \""}, "RowDefault"], 
+   TemplateBox[{"\"based on the \"", "\"Sign\"", "\" test.\""}, "RowDefault"]},
+  "RowDefault"]], "Output",
+ CellChangeTimes->{
+  3.954553330109041*^9, {3.954553375532295*^9, 3.9545534233028984`*^9}, {
+   3.954553573137375*^9, 3.954553650313654*^9}, {3.954553701244524*^9, 
+   3.9545537321741276`*^9}},
+ CellLabel->
+  "Out[109]=",ExpressionUUID->"92201202-080b-6d44-b4b2-eac63a0b6043"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Statistic\"\>"},
+     {"\<\"Signed\[Hyphen]Rank\"\>", "210.`"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{
+  3.954553330109041*^9, {3.954553375532295*^9, 3.9545534233028984`*^9}, {
+   3.954553573137375*^9, 3.954553650313654*^9}, {3.954553701244524*^9, 
+   3.954553732178356*^9}},
+ CellLabel->
+  "Out[110]=",ExpressionUUID->"3cd43438-746f-bf49-a74e-55ff06730cb9"],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Statistic\"\>"},
+     {"\<\"Signed\[Hyphen]Rank\"\>", "48.`"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{
+  3.954553330109041*^9, {3.954553375532295*^9, 3.9545534233028984`*^9}, {
+   3.954553573137375*^9, 3.954553650313654*^9}, {3.954553701244524*^9, 
+   3.954553732178356*^9}},
+ CellLabel->
+  "Out[111]=",ExpressionUUID->"18d76928-88d2-0848-bbf8-519781a69ffe"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"X", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "251", ",", "255", ",", "258", ",", "257", ",", "250", ",", "251", ",", 
+     "254", ",", "250", ",", "248"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Y", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "250", ",", "253", ",", "249", ",", "256", ",", "259", ",", "252", ",", 
+     "260", ",", "251", ",", "250"}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"MannWhitneyTest", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"X", ",", "Y"}], "}"}], ",", "0", ",", 
+    RowBox[{"AlternativeHypothesis", "\[Rule]", "\"\<Greater\>\""}]}], "]"}], 
+  " "}], "\n", 
+ RowBox[{"Difference", " ", "=", " ", 
+  RowBox[{"SortBy", "[", 
+   RowBox[{
+    RowBox[{"X", "-", "Y"}], ",", "Abs"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["W", "-"], " ", "=", " ", 
+   RowBox[{"-", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", "6"}], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   SubscriptBox["W", "+"], " ", "=", " ", 
+   RowBox[{
+   "2", "+", "3", "+", "4", "+", "5", "+", "7", "+", "8", "+", "9", "+", 
+    "10"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"W", " ", "=", " ", 
+  RowBox[{"Min", "[", 
+   RowBox[{
+    RowBox[{"Abs", "[", 
+     SubscriptBox["W", "-"], " ", "]"}], ",", 
+    SubscriptBox["W", "+"]}], " ", "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.8820059892613783`*^9, {3.954553791205225*^9, 3.95455381064122*^9}},
+ CellLabel->
+  "In[128]:=",ExpressionUUID->"0f3130a0-3ad3-1d41-8736-2506f7c198e9"],
+
+Cell[BoxData["0.6019127930892637`"], "Output",
+ CellChangeTimes->{{3.954553792951954*^9, 3.9545538119834824`*^9}},
+ CellLabel->
+  "Out[130]=",ExpressionUUID->"bb3660c2-90ec-5b41-bd84-1371afd50a11"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"-", "1"}], ",", 
+   RowBox[{"-", "1"}], ",", "1", ",", "1", ",", 
+   RowBox[{"-", "2"}], ",", "2", ",", 
+   RowBox[{"-", "6"}], ",", 
+   RowBox[{"-", "9"}], ",", "9"}], "}"}]], "Output",
+ CellChangeTimes->{{3.954553792951954*^9, 3.954553811985489*^9}},
+ CellLabel->
+  "Out[131]=",ExpressionUUID->"7c8360ba-fed0-e049-8f8e-f9d18b0d26ab"],
+
+Cell[BoxData["7"], "Output",
+ CellChangeTimes->{{3.954553792951954*^9, 3.9545538119874935`*^9}},
+ CellLabel->
+  "Out[134]=",ExpressionUUID->"725aa7d2-d9f0-2c47-819a-feb2d4c46ea6"]
+}, Open  ]]
+},
+WindowSize->{1141.5, 575},
+WindowMargins->{{50, Automatic}, {-37, Automatic}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (2023\:5e7412\:670812\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"f1ce7c50-21ca-7943-a9ee-4f98bc5f7d70"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 1175, 27, 100, "Input",ExpressionUUID->"96c9ab5a-9dd2-2448-8666-6b4ad01acd5e"],
+Cell[1754, 51, 815, 18, 42, "Output",ExpressionUUID->"a1c20bbb-c8a7-1f4e-80f6-ab2dca69e78c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2606, 74, 397, 6, 43, "Input",ExpressionUUID->"89749c2f-7ce7-c948-a31c-7be7b82cd9f5"],
+Cell[3006, 82, 736, 16, 42, "Output",ExpressionUUID->"1a718c92-c41a-754e-b717-720a3a0deb73"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3779, 103, 1055, 21, 116, "Input",ExpressionUUID->"f6bcbb91-11f8-f94e-affc-663b42a308c0"],
+Cell[4837, 126, 798, 17, 42, "Output",ExpressionUUID->"91cdbb7f-3147-dd4e-80a0-b67ad76074a7"],
+Cell[5638, 145, 580, 11, 52, "Output",ExpressionUUID->"0d06a2a7-76dc-e349-bf4e-94fa9bfba5d8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6255, 161, 1624, 35, 187, "Input",ExpressionUUID->"815b1ab0-71c9-ba4b-b2f7-559af0d03327"],
+Cell[7882, 198, 825, 20, 42, "Output",ExpressionUUID->"106049c0-3381-5f4b-a403-e76fad0f5298"],
+Cell[8710, 220, 660, 13, 32, "Output",ExpressionUUID->"92201202-080b-6d44-b4b2-eac63a0b6043"],
+Cell[9373, 235, 841, 20, 42, "Output",ExpressionUUID->"3cd43438-746f-bf49-a74e-55ff06730cb9"],
+Cell[10217, 257, 840, 20, 42, "Output",ExpressionUUID->"18d76928-88d2-0848-bbf8-519781a69ffe"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11094, 282, 1541, 45, 190, "Input",ExpressionUUID->"0f3130a0-3ad3-1d41-8736-2506f7c198e9"],
+Cell[12638, 329, 197, 3, 32, "Output",ExpressionUUID->"bb3660c2-90ec-5b41-bd84-1371afd50a11"],
+Cell[12838, 334, 387, 10, 32, "Output",ExpressionUUID->"7c8360ba-fed0-e049-8f8e-f9d18b0d26ab"],
+Cell[13228, 346, 179, 3, 32, "Output",ExpressionUUID->"725aa7d2-d9f0-2c47-819a-feb2d4c46ea6"]
+}, Open  ]]
+}
+]
+*)
+

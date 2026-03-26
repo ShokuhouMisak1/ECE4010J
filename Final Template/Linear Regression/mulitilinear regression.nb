@@ -1,0 +1,26 @@
+(\:8C03\:8BD5) In[287]:=
+
+xData={0.50,1.00,1.50,2.00,2.50};
+yData={-0.51,-2.09,-6.03,-9.28,-17.12};
+data=Transpose[{xData,yData}];
+
+(*使用 LinearModelFit 拟合模型*)
+model=LinearModelFit[data,{1,x,x^2},x];
+
+(*提取模型参数和预测值*)
+params=model["BestFitParameters"];
+fittedValues=model["PredictedResponse"];
+meanY=Mean[yData];
+
+(*计算统计量*)
+ssr=Total[(fittedValues-meanY)^2];  (*Regression sum of squares*)
+sse=Total[(yData-fittedValues)^2];  (*Error sum of squares*)
+sst=Total[(yData-meanY)^2];         (*Total sum of squares*)
+rSquared=model["RSquared"];           (*Coefficient of determination*)
+
+(*回归方程*)
+regressionEquation=\[Beta]0+\[Beta]1 x+\[Beta]2 x^2/. {\[Beta]0->params[[1]],\[Beta]1->params[[2]],\[Beta]2->params[[3]]};
+
+(*输出统计量和回归方程*)
+{ssr,sse,sst,rSquared,regressionEquation}
+(\:8C03\:8BD5) Out[310]= {173.293,1.48856,174.782,0.991483,-0.798+2.058 x-3.38 x^2}

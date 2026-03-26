@@ -1,0 +1,561 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     20827,        553]
+NotebookOptionsPosition[     19338,        523]
+NotebookOutlinePosition[     19756,        540]
+CellTagsIndexPosition[     19713,        537]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", 
+    RowBox[{
+    "SimpleChisquareIndependenceTest", ",", "scientificFormIfNeeded"}], "]"}],
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "Helper", " ", "function", " ", "for", " ", "printing", " ", "small", " ",
+      "p"}], "-", "values"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"scientificFormIfNeeded", "[", "p_", "]"}], ":=", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"0", "<", "p", "<", "0.0001"}], ",", 
+      RowBox[{"ScientificForm", "[", 
+       RowBox[{"p", ",", "4"}], "]"}], ",", 
+      RowBox[{"PaddedForm", "[", 
+       RowBox[{"p", ",", 
+        RowBox[{"{", 
+         RowBox[{"8", ",", "6"}], "}"}]}], "]"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SimpleChisquareIndependenceTest", "[", 
+    RowBox[{"observedTable_", "?", "MatrixQ"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "r", ",", "c", ",", "n", ",", "rowSums", ",", "colSums", ",", 
+       "observedTableWithMargins", ",", 
+       RowBox[{"(*", 
+        RowBox[{
+        "New", " ", "variable", " ", "for", " ", "augmented", " ", "table"}], 
+        "*)"}], "expectedNumTable", ",", "df", ",", "chiSquareStat", ",", 
+       "pValue", ",", "criticalValue", ",", 
+       RowBox[{"alpha", "=", "0.05"}]}], " ", 
+      RowBox[{"(*", 
+       RowBox[{
+       "Fixed", " ", "significance", " ", "level", " ", "for", " ", 
+        "conclusion"}], "*)"}], "}"}], ",", 
+     RowBox[{"(*", 
+      RowBox[{
+      "1.", " ", "Calculate", " ", "Dimensions", " ", "and", " ", "Marginal", 
+       " ", "Sums"}], "*)"}], 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"r", ",", "c"}], "}"}], "=", 
+       RowBox[{"Dimensions", "[", "observedTable", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"rowSums", "=", 
+       RowBox[{"Total", "[", 
+        RowBox[{"observedTable", ",", 
+         RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"colSums", "=", 
+       RowBox[{"Total", "[", 
+        RowBox[{"observedTable", ",", 
+         RowBox[{"{", "1", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"n", "=", 
+       RowBox[{"Total", "[", 
+        RowBox[{"observedTable", ",", "2"}], "]"}]}], ";", 
+      RowBox[{"(*", 
+       RowBox[{"Or", " ", 
+        RowBox[{"Total", "[", "rowSums", "]"}], " ", "or", " ", 
+        RowBox[{"Total", "[", "colSums", "]"}]}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+       "Basic", " ", "check", " ", "for", " ", "valid", " ", "input", " ", 
+        "total"}], "*)"}], 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"n", "==", "0"}], ",", 
+        RowBox[{
+         RowBox[{
+         "Print", "[", "\"\<Error: Total observations is zero.\>\"", "]"}], 
+         ";", 
+         RowBox[{"Return", "[", "$Failed", "]"}]}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"1", 
+        RowBox[{"b", ".", "Construct"}], " ", "Observed", " ", "Table", " ", 
+        "with", " ", "Margins"}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+       "Add", " ", "column", " ", "sums", " ", "as", " ", "a", " ", "new", 
+        " ", "row", " ", "at", " ", "the", " ", "bottom"}], "*)"}], 
+      RowBox[{"observedTableWithMargins", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{"observedTable", ",", 
+         RowBox[{"{", "colSums", "}"}], ",", "1"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Add", " ", "row", " ", "sums", " ", 
+        RowBox[{"(", 
+         RowBox[{"and", " ", "grand", " ", "total", " ", "n"}], ")"}], " ", 
+        "as", " ", "a", " ", "new", " ", "column", " ", "at", " ", "the", " ",
+         "right"}], "*)"}], 
+      RowBox[{"observedTableWithMargins", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{"observedTableWithMargins", ",", 
+         RowBox[{"List", "/@", 
+          RowBox[{"Append", "[", 
+           RowBox[{"rowSums", ",", "n"}], "]"}]}], ",", "2"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"2.", " ", "Calculate", " ", "Expected", " ", "Frequencies"}], 
+       "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{"Eij", "=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"ni", "."}], " ", "*", 
+           RowBox[{"n", ".", "j"}]}], ")"}], "/", "n"}]}], "*)"}], 
+      RowBox[{"expectedNumTable", "=", 
+       RowBox[{
+        RowBox[{"Outer", "[", 
+         RowBox[{"Times", ",", "rowSums", ",", "colSums"}], "]"}], "/", 
+        RowBox[{"N", "[", "n", "]"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+       "Basic", " ", "check", " ", "for", " ", "zero", " ", "expected", " ", 
+        "frequencies"}], "*)"}], 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Min", "[", "expectedNumTable", "]"}], "<=", "0"}], ",", 
+        RowBox[{
+         RowBox[{
+         "Print", "[", 
+          "\"\<Error: Expected frequency table contains zero or non-positive \
+values. Test cannot proceed reliably.\>\"", "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Return", "[", "$Failed", "]"}], ";"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+       "3.", " ", "Calculate", " ", "Degrees", " ", "of", " ", "Freedom"}], 
+       "*)"}], 
+      RowBox[{"df", "=", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"r", "-", "1"}], ")"}], "*", 
+        RowBox[{"(", 
+         RowBox[{"c", "-", "1"}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"df", "<=", "0"}], ",", 
+        RowBox[{
+         RowBox[{
+         "Print", "[", 
+          "\"\<Error: Degrees of freedom is zero or negative (need >1 row and \
+>1 column).\>\"", "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Return", "[", "$Failed", "]"}], ";"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"4.", " ", "Calculate", " ", "Chi"}], "-", 
+        RowBox[{"Squared", " ", "Statistic"}]}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"X", "^", "2"}], "=", 
+        RowBox[{"Sum", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"Oij", "-", "Eij"}], ")"}], "^", "2"}], "/", "Eij"}], 
+         "]"}]}], "*)"}], 
+      RowBox[{"chiSquareStat", "=", 
+       RowBox[{"Total", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Power", "[", 
+           RowBox[{
+            RowBox[{"observedTable", "-", "expectedNumTable"}], ",", "2"}], 
+           "]"}], "/", "expectedNumTable"}], ",", "2"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"!", 
+         RowBox[{"NumericQ", "[", "chiSquareStat", "]"}]}], ",", 
+        RowBox[{
+         RowBox[{
+         "Print", "[", "\"\<Error calculating Chi-Squared statistic.\>\"", 
+          "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Return", "[", "$Failed", "]"}], ";"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"5.", " ", "Calculate", " ", "P"}], "-", "value"}], "*)"}], 
+      RowBox[{"pValue", "=", 
+       RowBox[{"SurvivalFunction", "[", 
+        RowBox[{
+         RowBox[{"ChiSquareDistribution", "[", "df", "]"}], ",", 
+         "chiSquareStat"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"5", 
+        RowBox[{"b", ".", "Calculate"}], " ", "Critical", " ", "Value"}], 
+       "*)"}], 
+      RowBox[{"criticalValue", "=", 
+       RowBox[{"InverseCDF", "[", 
+        RowBox[{
+         RowBox[{"ChiSquareDistribution", "[", "df", "]"}], ",", 
+         RowBox[{"1", "-", "alpha"}]}], "]"}]}], ";", 
+      RowBox[{"(*", 
+       RowBox[{
+       "Using", " ", "Quantile", " ", "is", " ", "more", " ", "common"}], 
+       "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"criticalValue", "=", 
+         RowBox[{"Quantile", "[", 
+          RowBox[{
+           RowBox[{"ChiSquareDistribution", "[", "df", "]"}], ",", 
+           RowBox[{"1", "-", "alpha"}]}], "]"}]}], ";"}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"Alternative", "/", "preferred"}], " ", "way"}], "*)"}], 
+      RowBox[{"(*", 
+       RowBox[{"6.", " ", "Minimal", " ", "Output"}], "*)"}], 
+      RowBox[{
+      "Print", "[", "\"\<--- Chi-Squared Independence Test ---\>\"", "]"}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+       "Print", " ", "the", " ", "OBSERVED", " ", "table", " ", "WITH", " ", 
+        "MARGINS"}], "*)"}], 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<Observed Table (with Margins): \>\"", ",", 
+        RowBox[{"MatrixForm", "[", "observedTableWithMargins", "]"}]}], "]"}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<Expected Table (under H0): \>\"", ",", 
+        RowBox[{"MatrixForm", "[", 
+         RowBox[{"N", "[", 
+          RowBox[{"expectedNumTable", ",", "4"}], "]"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<Degrees of Freedom (df): \>\"", ",", "df"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<Chi-Squared Statistic (X^2): \>\"", ",", 
+        RowBox[{"N", "[", 
+         RowBox[{"chiSquareStat", ",", "5"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<P-value: \>\"", ",", 
+        RowBox[{"scientificFormIfNeeded", "[", "pValue", "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<Critical Value (alpha=\>\"", ",", "alpha", ",", "\"\<): \>\"", 
+        ",", 
+        RowBox[{"N", "[", 
+         RowBox[{"criticalValue", ",", "5"}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{
+       "7.", " ", "Simple", " ", "Conclusion", " ", "based", " ", "on", " ", 
+        "fixed", " ", "alpha"}], "*)"}], 
+      RowBox[{"Print", "[", 
+       RowBox[{
+       "\"\<--- Conclusion (alpha = \>\"", ",", "alpha", ",", 
+        "\"\<) ---\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"pValue", "<", "alpha"}], ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{
+         "\"\<P-value < \>\"", ",", "alpha", ",", 
+          "\"\<. Reject H0: Variables appear dependent.\>\""}], "]"}], ",", 
+        RowBox[{"Print", "[", 
+         RowBox[{
+         "\"\<P-value >= \>\"", ",", "alpha", ",", 
+          "\"\<. Fail to reject H0: No significant evidence of \
+dependence.\>\""}], "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Optional", ":", 
+        RowBox[{
+        "Return", " ", "a", " ", "list", " ", "of", " ", "key", " ", 
+         "results"}]}], "*)"}], 
+      RowBox[{"Return", "[", 
+       RowBox[{"{", 
+        RowBox[{"df", ",", "chiSquareStat", ",", "pValue"}], "}"}], "]"}], 
+      ";"}]}], "]"}]}], "\n", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Sample", " ", "Observed", " ", "Data"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"observedData", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", " ", "3", ",", " ", "24"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"12", ",", " ", "28", ",", " ", "76"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"12", ",", " ", "14", ",", " ", "30"}], "}"}]}], "}"}]}], 
+   ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Run", " ", "the", " ", "simplified", " ", "test"}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"resultsList", "=", 
+   RowBox[{"SimpleChisquareIndependenceTest", "[", "observedData", "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"If", " ", "the", " ", "test", " ", 
+     RowBox[{"didn", "'"}], "t", " ", "fail"}], ",", 
+    RowBox[{"resultsList", " ", "contains", " ", 
+     RowBox[{"{", 
+      RowBox[{"df", ",", "chiSquareStat", ",", "pValue"}], "}"}]}]}], 
+   "*)"}]}], "\n", 
+ RowBox[{"If", "[", 
+  RowBox[{
+   RowBox[{"ValueQ", "[", "resultsList", "]"}], ",", 
+   RowBox[{"Print", "[", 
+    RowBox[{"\"\<\\nReturned list: \>\"", ",", "resultsList"}], "]"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.9541160744378204`*^9, 3.9541160744378204`*^9}, {
+  3.954217948312432*^9, 3.9542179690693703`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"22523973-9eac-a447-80ba-45acb32c3fca"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"--- Chi-Squared Independence Test ---\"\>"], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015543404`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"81be91ea-5e1a-6649-8f91-\
+842e34445f0f"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Observed Table (with Margins): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"1", "3", "24", "28"},
+       {"12", "28", "76", "116"},
+       {"12", "14", "30", "56"},
+       {"25", "45", "130", "200"}
+      },
+      GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["Observed Table (with Margins): ", 
+   MatrixForm[{{1, 3, 24, 28}, {12, 28, 76, 116}, {12, 14, 30, 56}, {25, 45, 
+    130, 200}}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015543404`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"de7b2900-3e9c-8940-a0d3-\
+eec3c1a64b69"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Expected Table (under H0): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"3.5`", "6.3`", "18.2`"},
+       {"14.5`", "26.1`", "75.4`"},
+       {"7.`", "12.6`", "36.4`"}
+      },
+      GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["Expected Table (under H0): ", 
+   MatrixForm[{{3.5, 6.3, 18.2}, {14.5, 26.1, 75.4}, {7., 12.6, 36.4}}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015543404`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"9b3880ba-790e-994c-99ae-\
+4844eef67411"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Degrees of Freedom (df): \"\>", "\[InvisibleSpace]", "4"}],
+  SequenceForm["Degrees of Freedom (df): ", 4],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015543404`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"431db5ab-84c2-d34f-a0ad-\
+42b2990c2e8c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Chi-Squared Statistic (X^2): \"\>", "\[InvisibleSpace]", 
+   "10.789019409709063`"}],
+  SequenceForm["Chi-Squared Statistic (X^2): ", 10.789019409709063`],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015543404`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"90b6a21f-13da-0142-9373-\
+52207395b83a"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"P-value: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"  0.029040\"\>",
+      ShowStringCharacters->False],
+     0.02904032373243191,
+     AutoDelete->True],
+    PaddedForm[#, {8, 6}]& ]}],
+  SequenceForm["P-value: ", 
+   PaddedForm[0.02904032373243191, {8, 6}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015663643`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"e3c1b67a-00b6-4d43-8ce8-\
+3877b599ccbe"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Critical Value (alpha=\"\>", "\[InvisibleSpace]", "0.05`", 
+   "\[InvisibleSpace]", "\<\"): \"\>", "\[InvisibleSpace]", 
+   "9.487729036781156`"}],
+  SequenceForm["Critical Value (alpha=", 0.05, "): ", 9.487729036781156],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015663643`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"ce00f0df-d907-5949-9f1a-\
+71d983090d95"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"--- Conclusion (alpha = \"\>", "\[InvisibleSpace]", "0.05`", 
+   "\[InvisibleSpace]", "\<\") ---\"\>"}],
+  SequenceForm["--- Conclusion (alpha = ", 0.05, ") ---"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015663643`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"2e82c02f-a2dc-f645-8d2b-\
+9d56dce2e464"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"P-value < \"\>", "\[InvisibleSpace]", "0.05`", 
+   "\[InvisibleSpace]", "\<\". Reject H0: Variables appear dependent.\"\>"}],
+  SequenceForm["P-value < ", 0.05, ". Reject H0: Variables appear dependent."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015663643`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"ac2533dd-2755-434e-a09d-\
+190ce1ddba92"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"4", ",", "10.789019409709063`", ",", "0.02904032373243191`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.954116077264662*^9, 3.95421797177293*^9, 
+  3.9545518015663643`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"6e49a5a4-0786-3149-8c6b-828d124e7746"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\\nReturned list: \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "10.789019409709063`", ",", "0.02904032373243191`"}], 
+    "}"}]}],
+  SequenceForm[
+  "\nReturned list: ", {4, 10.789019409709063`, 0.02904032373243191}],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.954116077242647*^9, 3.9542179715601063`*^9, 
+  3.9545518015663643`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[1]:=",ExpressionUUID->"eed1ed30-b1c4-534e-80fe-\
+4dc38d99f513"]
+}, Open  ]]
+},
+WindowSize->{852.5, 511.5},
+WindowMargins->{{0, Automatic}, {Automatic, 78.5}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (2023\:5e7412\:670812\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2fe3122f-cae9-f348-8c8b-a435e541d046"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 12693, 328, 1757, "Input",ExpressionUUID->"22523973-9eac-a447-80ba-45acb32c3fca"],
+Cell[CellGroupData[{
+Cell[13294, 354, 271, 5, 22, "Print",ExpressionUUID->"81be91ea-5e1a-6649-8f91-842e34445f0f"],
+Cell[13568, 361, 1070, 28, 67, "Print",ExpressionUUID->"de7b2900-3e9c-8940-a0d3-eec3c1a64b69"],
+Cell[14641, 391, 1011, 26, 51, "Print",ExpressionUUID->"9b3880ba-790e-994c-99ae-4844eef67411"],
+Cell[15655, 419, 386, 9, 22, "Print",ExpressionUUID->"431db5ab-84c2-d34f-a0ad-42b2990c2e8c"],
+Cell[16044, 430, 434, 10, 22, "Print",ExpressionUUID->"90b6a21f-13da-0142-9373-52207395b83a"],
+Cell[16481, 442, 578, 17, 22, "Print",ExpressionUUID->"e3c1b67a-00b6-4d43-8ce8-3877b599ccbe"],
+Cell[17062, 461, 500, 11, 22, "Print",ExpressionUUID->"ce00f0df-d907-5949-9f1a-71d983090d95"],
+Cell[17565, 474, 442, 10, 22, "Print",ExpressionUUID->"2e82c02f-a2dc-f645-8d2b-9d56dce2e464"],
+Cell[18010, 486, 484, 10, 22, "Print",ExpressionUUID->"ac2533dd-2755-434e-a09d-190ce1ddba92"]
+}, Open  ]],
+Cell[18509, 499, 291, 6, 32, "Output",ExpressionUUID->"6e49a5a4-0786-3149-8c6b-828d124e7746"],
+Cell[18803, 507, 519, 13, 40, "Print",ExpressionUUID->"eed1ed30-b1c4-534e-80fe-4dc38d99f513"]
+}, Open  ]]
+}
+]
+*)
+
